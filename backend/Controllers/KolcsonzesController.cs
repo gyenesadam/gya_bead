@@ -13,116 +13,126 @@ namespace backend.Controllers
 {
     public class KolcsonzesController : ApiController
     {
-        public HttpResponseMessage Get()                                    //GET metódus kezdete
+        public HttpResponseMessage Get()                                    //GET eleje
         {
             string query = @"
-                select KolcsID,Tag,
-                Kolcsdatuma,
-                Visszadatum,
-                Media from
-                dbo.Kolcsonzes
-                ";
+                    select KolcsId,Tag,
+                    convert(varchar(10),Kolcsdatuma,120) as Kolcsdatuma,
+                    convert(varchar(10),Visszadatum,120) as Visszadatum,
+                    Media
+                    from
+                    dbo.Kolcsonzes
+                    ";
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
-            ConnectionStrings["gyaDBconn"].ConnectionString))
+                ConnectionStrings["gyaDBconn"].ConnectionString))
             using (var cmd = new SqlCommand(query, con))
             using (var da = new SqlDataAdapter(cmd))
             {
                 cmd.CommandType = CommandType.Text;
                 da.Fill(table);
             }
+
             return Request.CreateResponse(HttpStatusCode.OK, table);
-        }                                                                   //GET metódus vége
 
 
-        public string Post(Kolcsonzes kolcs)                                //EZ SEM MEGY......
+        }                                                                   //GET vége
+
+        public string Post(Kolcsonzes kolcs)                                //POST eleje
         {
             try
             {
                 string query = @"
-                update dbo.Kolcsonzes set
-                Tag='" + kolcs.Tag + @"',
-                Koclsdatuma='" + kolcs.Kolcsdatuma + @"',
-                Visszadatum='" + kolcs.Visszadatum + @"',
-                Media='" + kolcs.Media + @"'
-                where KolcsID=" + kolcs.KolcsID + @"
-                ";
+                    insert into dbo.Kolcsonzes values
+                    (
+                    '" + kolcs.Tag + @"',
+                    '" + kolcs.Kolcsdatuma + @"',
+                    '" + kolcs.Visszadatum + @"',
+                    '" + kolcs.Media + @"'
+                    )
+                    ";
 
                 DataTable table = new DataTable();
                 using (var con = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["gyaDBconn"].ConnectionString))
+                    ConnectionStrings["gyaDBconn"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
                     da.Fill(table);
                 }
-                return "Tag hozzáadása sikeres!";
+
+                return "Kölcsönzés rögzítve!";
             }
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag felvitele során!";
+                return "HIBA az adatbázisművelet közben!";
             }
-        }
+        }                                                                   //POST vége
 
-        public string Put(Kolcsonzes kolcs)                                //EZ SEM MEGY......
+
+        public string Put(Kolcsonzes kolcs)                                 //PUT eleje
         {
             try
             {
                 string query = @"
-             update dbo.Kolcsonzes set
-                Tag='" + kolcs.Tag + @"',
-                Kolcsdatum='" + kolcs.Kolcsdatuma + @"',
-                Visszadatum='" + kolcs.Visszadatum + @"',
-                Media='" + kolcs.Media + @"'
-                where KolcsID=" + kolcs.KolcsID + @"
-                ";
+                    update dbo.Kolcsonzes set 
+                    Tag='" + kolcs.Tag + @"',
+                    Kolcsdatuma='" + kolcs.Kolcsdatuma + @"',
+                    Visszadatum='" + kolcs.Visszadatum + @"',
+                    Media='" + kolcs.Media+ @"'
+                    where KolcsId=" + kolcs.KolcsID + @"
+                    ";
 
                 DataTable table = new DataTable();
                 using (var con = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["gyaDBconn"].ConnectionString))
+                    ConnectionStrings["gyaDBconn"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
                     da.Fill(table);
                 }
-                return "Tag módosítása sikeres!";
+
+                return "Kölcsönzési adatok frissítve!";
             }
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag módosítása során!";
+                return "HIBA az adatbázisművelet közben!";
             }
-        }
+        }                                                                   //PUT vége
 
-        public string Delete(int id)                                //EZ SEM MEGY......
+
+        public string Delete(int id)                                        //DEL eleje
         {
             try
             {
                 string query = @"
-                delete from dbo.Kolcsonzes
-                where KolcsonzesID=" + id + @"
-                ";
+                    delete from dbo.Kolcsonzes 
+                    where KolcsID=" + id + @"
+                    ";
 
                 DataTable table = new DataTable();
                 using (var con = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["gyaDBconn"].ConnectionString))
+                    ConnectionStrings["gyaDBconn"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
                     da.Fill(table);
                 }
-                return "Tag törlése sikeres!";
+
+                return "Sikeres törlés!";
             }
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag törlése során!";
+                return "HIBA az adatbázisművelet közben!";
             }
-        }
-
+        }                                                                   //DEL vége
     }
 }
+
+

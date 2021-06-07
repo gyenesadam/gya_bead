@@ -59,7 +59,7 @@ namespace backend.Controllers
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag felvitele során!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
 
@@ -91,16 +91,17 @@ namespace backend.Controllers
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag módosítása során!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
 
-        public string Delete(int id)                                          //EZ TÖRÖL, DE CSAK a STÁTUSZT KELLENE PASSZÍVRA ÍRNI!!!!!
+        public string Delete(int id)                                         
         {
             try
             {
                 string query = @"
-                delete from dbo.Tagok
+                update dbo.Tagok set                      
+                Statusz='PASSZÍV'
                 where TagID=" + id + @"
                 ";
 
@@ -118,9 +119,37 @@ namespace backend.Controllers
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag törlése során!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
+
+                                /* DELETE metódus mentése
+                                        public string Delete(int id)                                          //EZ TÖRÖL, DE CSAK a STÁTUSZT KELLENE PASSZÍVRA ÍRNI!!!!!
+                                {
+                                    try
+                                    {
+                                        string query = @"
+                                        delete from dbo.Tagok
+                                        where TagID=" + id + @"
+                                        ";
+
+                                        DataTable table = new DataTable();
+                                        using (var con = new SqlConnection(ConfigurationManager.
+                                        ConnectionStrings["gyaDBconn"].ConnectionString))
+                                        using (var cmd = new SqlCommand(query, con))
+                                        using (var da = new SqlDataAdapter(cmd))
+                                        {
+                                            cmd.CommandType = CommandType.Text;
+                                            da.Fill(table);
+                                        }
+                                        return "Tag törlése sikeres!";
+                                    }
+                                    catch (Exception)
+                                    {
+
+                                        return "HIBA az adatbázisművelet közben!";
+                                    }
+                                } */
 
     }
 }

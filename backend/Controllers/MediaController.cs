@@ -57,7 +57,7 @@ namespace backend.Controllers
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag felvitele során!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
 
@@ -83,12 +83,12 @@ namespace backend.Controllers
                     da.Fill(table);
                 }
 
-                return "Updated Successfully!!";
+                return "Média adatai frissültek!";
             }
             catch (Exception)
             {
 
-                return "Failed to Update!!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
 
@@ -110,12 +110,12 @@ namespace backend.Controllers
                     cmd.CommandType = CommandType.Text;
                     da.Fill(table);
                 }
-                return "Tag törlése sikeres!";
+                return "Média törlése sikeres!";
             }
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag törlése során!";
+                return "HIBA az adatbázisművelet közben!";
             }
         }
 
