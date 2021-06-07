@@ -11,18 +11,18 @@ using System.Web.Http;
 
 namespace backend.Controllers
 {
-    public class TagokController : ApiController
+    public class MediaController : ApiController
     {
         public HttpResponseMessage Get()                                    //GET metódus kezdete
         {
             string query = @"
-                select TagID,Nev,SZIG,IR,Cim,Statusz from
-                dbo.Tagok
+                select mediaID,Mediatipus,Cim,Szerzo from
+                dbo.Media
                 ";
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
             ConnectionStrings["gyaDBconn"].ConnectionString))
-            using (var cmd = new SqlCommand(query,con))
+            using (var cmd = new SqlCommand(query, con))
             using (var da = new SqlDataAdapter(cmd))
             {
                 cmd.CommandType = CommandType.Text;
@@ -32,17 +32,15 @@ namespace backend.Controllers
         }                                                                   //GET metódus vége
 
 
-        public string Post(Tagok tag)      
+        public string Post(Media med)                                       //MAGYAROSÍTANI!!!!
         {
             try
             {
                 string query = @"
-                insert into dbo.Tagok values
-                ('"+tag.Nev+ @"',
-                '" + tag.SZIG + @"',
-                '" + tag.IR + @"',
-                '" + tag.Cim + @"',
-                '" + tag.Statusz + @"')
+                insert into dbo.Media values
+                ('" + med.Mediatipus + @"',
+                '" + med.Cim + @"',
+                '" + med.Szerzo + @"')
                 ";
 
                 DataTable table = new DataTable();
@@ -63,45 +61,44 @@ namespace backend.Controllers
             }
         }
 
-        public string Put(Tagok tag)
+        public string Put(Media medi)
         {
             try
             {
                 string query = @"
-                update dbo.Tagok set
-                Nev='" + tag.Nev + @"',
-                SZIG='" + tag.SZIG + @"',
-                IR='" + tag.IR + @"',
-                Cim='" + tag.Cim + @"',
-                Statusz='" + tag.Statusz + @"'
-                where TagID=" + tag.TagID + @"
-                ";
+                    update dbo.Media set 
+                    Mediatipus='" + medi.Mediatipus + @"'
+                    ,Cim='" + medi.Cim + @"'
+                    ,Szerzo='" + medi.Szerzo + @"'
+                    where mediaID=" + medi.mediaID + @"
+                    ";
 
                 DataTable table = new DataTable();
                 using (var con = new SqlConnection(ConfigurationManager.
-                ConnectionStrings["gyaDBconn"].ConnectionString))
+                    ConnectionStrings["gyaDBconn"].ConnectionString))
                 using (var cmd = new SqlCommand(query, con))
                 using (var da = new SqlDataAdapter(cmd))
                 {
                     cmd.CommandType = CommandType.Text;
                     da.Fill(table);
                 }
-                return "Tag módosítása sikeres!";
+
+                return "Updated Successfully!!";
             }
             catch (Exception)
             {
 
-                return "Ismeretlen hiba a tag módosítása során!";
+                return "Failed to Update!!";
             }
         }
 
-        public string Delete(int id)                                          //EZ TÖRÖL, DE CSAK a STÁTUSZT KELLENE PASSZÍVRA ÍRNI!!!!!
+        public string Delete(int id)                                          
         {
             try
             {
                 string query = @"
-                delete from dbo.Tagok
-                where TagID=" + id + @"
+                delete from dbo.Media
+                where mediaID=" + id + @"
                 ";
 
                 DataTable table = new DataTable();

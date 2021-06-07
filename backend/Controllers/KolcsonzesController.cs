@@ -11,18 +11,21 @@ using System.Web.Http;
 
 namespace backend.Controllers
 {
-    public class TagokController : ApiController
+    public class KolcsonzesController : ApiController
     {
         public HttpResponseMessage Get()                                    //GET metódus kezdete
         {
             string query = @"
-                select TagID,Nev,SZIG,IR,Cim,Statusz from
-                dbo.Tagok
+                select KolcsID,Tag,
+                Kolcsdatuma,
+                Visszadatum,
+                Media from
+                dbo.Kolcsonzes
                 ";
             DataTable table = new DataTable();
             using (var con = new SqlConnection(ConfigurationManager.
             ConnectionStrings["gyaDBconn"].ConnectionString))
-            using (var cmd = new SqlCommand(query,con))
+            using (var cmd = new SqlCommand(query, con))
             using (var da = new SqlDataAdapter(cmd))
             {
                 cmd.CommandType = CommandType.Text;
@@ -32,17 +35,17 @@ namespace backend.Controllers
         }                                                                   //GET metódus vége
 
 
-        public string Post(Tagok tag)      
+        public string Post(Kolcsonzes kolcs)                                //EZ SEM MEGY......
         {
             try
             {
                 string query = @"
-                insert into dbo.Tagok values
-                ('"+tag.Nev+ @"',
-                '" + tag.SZIG + @"',
-                '" + tag.IR + @"',
-                '" + tag.Cim + @"',
-                '" + tag.Statusz + @"')
+                update dbo.Kolcsonzes set
+                Tag='" + kolcs.Tag + @"',
+                Koclsdatuma='" + kolcs.Kolcsdatuma + @"',
+                Visszadatum='" + kolcs.Visszadatum + @"',
+                Media='" + kolcs.Media + @"'
+                where KolcsID=" + kolcs.KolcsID + @"
                 ";
 
                 DataTable table = new DataTable();
@@ -63,18 +66,17 @@ namespace backend.Controllers
             }
         }
 
-        public string Put(Tagok tag)
+        public string Put(Kolcsonzes kolcs)                                //EZ SEM MEGY......
         {
             try
             {
                 string query = @"
-                update dbo.Tagok set
-                Nev='" + tag.Nev + @"',
-                SZIG='" + tag.SZIG + @"',
-                IR='" + tag.IR + @"',
-                Cim='" + tag.Cim + @"',
-                Statusz='" + tag.Statusz + @"'
-                where TagID=" + tag.TagID + @"
+             update dbo.Kolcsonzes set
+                Tag='" + kolcs.Tag + @"',
+                Kolcsdatum='" + kolcs.Kolcsdatuma + @"',
+                Visszadatum='" + kolcs.Visszadatum + @"',
+                Media='" + kolcs.Media + @"'
+                where KolcsID=" + kolcs.KolcsID + @"
                 ";
 
                 DataTable table = new DataTable();
@@ -95,13 +97,13 @@ namespace backend.Controllers
             }
         }
 
-        public string Delete(int id)                                          //EZ TÖRÖL, DE CSAK a STÁTUSZT KELLENE PASSZÍVRA ÍRNI!!!!!
+        public string Delete(int id)                                //EZ SEM MEGY......
         {
             try
             {
                 string query = @"
-                delete from dbo.Tagok
-                where TagID=" + id + @"
+                delete from dbo.Kolcsonzes
+                where KolcsonzesID=" + id + @"
                 ";
 
                 DataTable table = new DataTable();
