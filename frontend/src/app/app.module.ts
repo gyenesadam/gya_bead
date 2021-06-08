@@ -12,6 +12,7 @@ import { AddEditMediaComponent } from './media/add-edit-media/add-edit-media.com
 import { KolcsonzesComponent } from './kolcsonzes/kolcsonzes.component';
 import { ShowKolcsComponent } from './kolcsonzes/show-kolcs/show-kolcs.component';
 import { AddEditKolcsComponent } from './kolcsonzes/add-edit-kolcs/add-edit-kolcs.component';
+import {SharedService} from './shared.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { AddEditKolcsComponent } from './kolcsonzes/add-edit-kolcs/add-edit-kolc
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [SharedService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
