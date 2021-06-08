@@ -1,1 +1,31 @@
-<p>show-tagok works!</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Azonosító</th>
+            <th>Név</th>
+            <th>SZIG</th>
+            <th>IR</th>
+            <th>Cím</th>
+            <th>STÁTUSZ</th>
+            <th>Műveletek</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let dataItem of TagList">
+            <td>{{dataItem.TagID}}</td>
+            <td>{{dataItem.Nev}}</td>
+            <td>{{dataItem.SZIG}}</td>
+            <td>{{dataItem.IR}}</td>
+            <td>{{dataItem.Cim}}</td>
+            <td>{{dataItem.Statusz}}</td>
+            <td>
+                <button type="button" class="btn btn-light mr-1">
+                    Szerkesztés
+                </button>
+                <button type="button" class="btn btn-light mr-1">
+                    Törlés
+                </button>
+            </td>
+        </tr>
+    </tbody>
+</table>

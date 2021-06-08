@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SharedService} from 'src/app/shared.service';
 
 @Component({
   selector: 'app-show-tagok',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowTagokComponent implements OnInit {
 
-  constructor() { }
+  constructor(private service:SharedService) { }
+
+  TagList:any=[];
 
   ngOnInit(): void {
+    this.refreshTagokList();
+  }
+
+  refreshTagokList(){
+    this.service.getTagok().subscribe(data=>{
+      this.TagList=data;
+
+    });
   }
 
 }
