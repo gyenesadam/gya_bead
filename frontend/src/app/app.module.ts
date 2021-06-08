@@ -14,6 +14,9 @@ import { ShowKolcsComponent } from './kolcsonzes/show-kolcs/show-kolcs.component
 import { AddEditKolcsComponent } from './kolcsonzes/add-edit-kolcs/add-edit-kolcs.component';
 import {SharedService} from './shared.service';
 
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +32,10 @@ import {SharedService} from './shared.service';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [SharedService],
   bootstrap: [AppComponent]
