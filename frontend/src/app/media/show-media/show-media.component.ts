@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-show-media',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowMediaComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private service:SharedService) { }
+  MediaList:any=[];
   ngOnInit(): void {
+    this.refreshMediaList();
+  }
+
+
+  
+  refreshMediaList(){
+    this.service.getMedia().subscribe(data=>{
+      this.MediaList=data;
+
+    });
   }
 
 }

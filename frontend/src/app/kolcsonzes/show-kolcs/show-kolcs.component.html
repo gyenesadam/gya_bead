@@ -1,1 +1,56 @@
-<p>show-kolcs works!</p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+    >
+      Hozzáadás
+    </button>
+    </div>
+    
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Kölcsönzés felvitele</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <app-add-edit-tagok></app-add-edit-tagok>
+            <h6>Na ez még nem működik.... :(</h6>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+            <button type="button" class="btn btn-primary">Mentés</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Azonosító</th>
+                <th>Tag</th>
+                <th>Tétel</th>
+                <th>Kölcsönzés dátuma</th>
+                <th>Visszavétel dátuma</th>
+                <th>Műveletek</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of KolcsList">
+                <td>{{dataItem.KolcsID}}</td>
+                <td>{{dataItem.Tag}}</td>
+                <td>{{dataItem.Media}}</td>
+                <td>{{dataItem.Kolcsdatuma}}</td>
+                <td>{{dataItem.Visszadatum}}</td>
+                <td>
+                    <button type="button" class="btn btn-light mr-1">
+                        Szerkesztés
+                    </button>
+                    <button type="button" class="btn btn-light mr-1">
+                        Törlés
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    

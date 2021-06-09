@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-show-kolcs',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ShowKolcsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private service:SharedService) { }
+  KolcsList:any=[];
   ngOnInit(): void {
+    this.refreshKolcsList();
+  }
+
+
+  
+  refreshKolcsList(){
+    this.service.getKolcsonzes().subscribe(data=>{
+      this.KolcsList=data;
+
+    });
   }
 
 }

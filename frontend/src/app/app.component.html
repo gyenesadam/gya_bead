@@ -3,26 +3,27 @@
     <h3 class="d-flex justify-content-center">Beadandó feladat </h3>
  
 
-    <nav class="navbar navbar-expand-sm bg-light navbar-dark">
-    <ul class="navbar-nav">
- 
-        <li class="nav-item">
-            <button routerLink="tagok"
-            class="m-1 btn btn btn-primary" Button>Tagok</button>
-        </li>
+    
 
-        <li class="nav-item">
-            <button routerLink="media"
-            class="m-1 btn btn btn-primary" Button>Tételek</button>
-        </li>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">Kezdőlap</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-link active" aria-current="page" href="tagok">Tagok</a>
+              <a class="nav-link" href="media">Média</a>
+              <a class="nav-link" href="kolcsonzes">Kölcsönzés</a>
 
-        <li class="nav-item">
-            <button routerLink="kolcsonzes"
-            class="m-1 btn btn btn-primary" Button>Kölcsönzés</button>
-        </li>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-    </ul>
-    </nav>
+
+
 <router-outlet></router-outlet>
  
 <h6 class="d-flex justify-content-center">~ Beadandó feladat | Gyenes Ádám | EFV4KJ | Ózd | Mérnökinformatikus-levelező ~ </h6>
